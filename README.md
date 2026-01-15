@@ -32,18 +32,6 @@ It provides an admin panel for managing buses, routes, employees, and assignment
 
 ---
 
-## Project Structure
-
-```text
-project_db/
-├─ admin/                 # Admin panel pages (CRUD + assignments)
-├─ assets/                # CSS, JS, images
-├─ includes/              # header, footer, DB config
-├─ temp/                  # SQL file + development notes
-└─ index.php              # Home page
-
----
-
 ## Screenshots
 
 ### Home Page – Banner
@@ -57,3 +45,17 @@ project_db/
 
 ### Admin Panel Dashboard
 ![Admin Panel](screenshots/admin-panel.png)
+
+---
+
+## Project Structure
+
+```text
+project_db/
+├─ admin/                 # Admin panel pages (CRUD + assignments)
+├─ assets/                # CSS, JS, images
+├─ includes/              # header, footer, DB config
+├─ temp/                  # SQL file + development notes
+└─ index.php              # Home page
+
+
