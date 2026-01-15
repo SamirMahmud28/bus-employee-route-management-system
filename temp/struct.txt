@@ -1,0 +1,13 @@
+bus-management/
+├── admin/
+│   ├── dashboard.php
+│   ├── add-employee.php
+│   ├── edit-employee.php
+│   └── delete-employee.php
+├── includes/
+│   ├── config.php
+│   └── header.php
+├── index.php
+└── assets/
+    └── css/
+        └── style.css

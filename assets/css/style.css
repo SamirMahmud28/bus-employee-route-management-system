@@ -1,0 +1,115 @@
+:root {
+    --primary-purple: #6f42c1;
+    --secondary-purple: #4e2a84;
+    --bg-dark: #1f0939;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: #fff;
+    min-height: 100vh;
+}
+
+/* Navigation */
+.glass-nav {
+    background: rgba(255, 255, 255, 0.214);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    min-height: 120vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/hero-bg.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    padding-top: 80px;
+    margin-bottom: 20px;
+}
+
+.hero-content {
+    max-width: 800px;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, #fff, #a855f7);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Content Section */
+.content-section {
+    position: relative;
+    background: linear-gradient(180deg, transparent, var(--bg-dark) 10%, var(--bg-dark));
+    min-height: 100vh;
+    margin-top: -20vh;
+    padding-top: 25vh;
+}
+
+/* Glass Card Effect */
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Table Styles */
+.table {
+    color: #fff;
+}
+
+.table thead th {
+    background: rgba(111, 66, 193, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.table td {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Form Elements */
+.search-bar {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.search-bar:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-purple);
+    color: #fff;
+    box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+}
+
+.admin-stats-card {
+    transition: transform 0.3s ease;
+}
+
+.admin-stats-card:hover {
+    transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+}

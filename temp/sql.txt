@@ -1,0 +1,145 @@
+CREATE DATABASE bus_employee_management;
+USE bus_employee_management;
+
+CREATE TABLE bus (
+    bus_id INT PRIMARY KEY AUTO_INCREMENT,
+    bus_number VARCHAR(10) NOT NULL,
+    capacity INT NOT NULL
+);
+
+
+CREATE TABLE route (
+    route_id INT PRIMARY KEY AUTO_INCREMENT,
+    route_name VARCHAR(50) NOT NULL,
+    distance FLOAT NOT NULL
+);
+
+CREATE TABLE schedule (
+    schedule_id INT PRIMARY KEY AUTO_INCREMENT,
+    departure_time TIME NOT NULL,
+    arrival_time TIME NOT NULL
+);
+
+CREATE TABLE Bus_Route_Schedule (
+    bus_id INT NOT NULL,
+    schedule_id INT NOT NULL,
+    route_id INT NOT NULL,
+    PRIMARY KEY (bus_id, schedule_id, route_id),
+    FOREIGN KEY (bus_id) REFERENCES bus(bus_id),
+    FOREIGN KEY (schedule_id) REFERENCES schedule(schedule_id),
+    FOREIGN KEY (route_id) REFERENCES route(route_id)
+);
+
+CREATE TABLE employee (
+    employee_id VARCHAR(20) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    salary INT NOT NULL
+);
+
+ALTER TABLE employee ADD COLUMN station_id INT;
+ALTER TABLE employee ADD CONSTRAINT fk_station FOREIGN KEY (station_id) REFERENCES station(station_id);
+
+CREATE TABLE station (
+    station_id INT AUTO_INCREMENT PRIMARY KEY,
+    station_name VARCHAR(255) NOT NULL,
+    location VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE Counter (
+    counter_id INT AUTO_INCREMENT PRIMARY KEY,
+    station_id INT UNIQUE,
+    counter_name VARCHAR(100) NOT NULL,
+    FOREIGN KEY (station_id) REFERENCES Station(station_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE passenger (
+    passenger_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    middle_name VARCHAR(50),
+    last_name VARCHAR(50) NOT NULL,
+    age INT NOT NULL,
+    gender VARCHAR(10),
+    address TEXT
+);
+
+CREATE TABLE mobile_number (
+    mobile_id INT AUTO_INCREMENT PRIMARY KEY,
+    passenger_id INT NOT NULL,
+    mobile_number VARCHAR(15) NOT NULL,
+    FOREIGN KEY (passenger_id) REFERENCES passenger(passenger_id) ON DELETE CASCADE
+);
+
+CREATE TABLE ticket (
+    ticket_id INT AUTO_INCREMENT PRIMARY KEY,
+    date_of_purchase DATE NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    quantity INT NOT NULL,
+    bus_id INT NOT NULL,
+    passenger_id INT NOT NULL,
+    total_price DECIMAL(10, 2) AS (price * quantity) VIRTUAL,
+    FOREIGN KEY (bus_id) REFERENCES bus(bus_id) ON DELETE CASCADE,
+    FOREIGN KEY (passenger_id) REFERENCES passenger(passenger_id) ON DELETE CASCADE
+);
+
+CREATE TABLE driver (
+    employee_id VARCHAR(20) PRIMARY KEY,
+    license_number VARCHAR(20) NOT NULL,
+    assigned_bus_id INT NOT NULL,
+    FOREIGN KEY (employee_id) REFERENCES employee(employee_id),
+    FOREIGN KEY (assigned_bus_id) REFERENCES bus(bus_id)
+);
+
+CREATE TABLE admin (
+    employee_id VARCHAR(20) PRIMARY KEY,
+    department VARCHAR(50) NOT NULL,
+    office_location VARCHAR(100) NOT NULL,
+    FOREIGN KEY (employee_id) REFERENCES employee(employee_id)
+);
+
+CREATE TABLE supervisor (
+    employee_id VARCHAR(20) NOT NULL,
+    supervisor_id VARCHAR(20) DEFAULT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE,
+    PRIMARY KEY (employee_id),
+    FOREIGN KEY (employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE,
+    FOREIGN KEY (supervisor_id) REFERENCES employee(employee_id) ON DELETE SET NULL
+) ENGINE=InnoDB;
+
+
+INSERT INTO bus VALUES
+(1, 'BUS001', 40),
+(2, 'BUS002', 35),
+(3, 'BUS003', 40);
+
+INSERT INTO route VALUES
+(1, 'Route 1', 15.5),
+(2, 'Route 2', 12.8),
+(3, 'Route 3', 20.0);
+
+INSERT INTO schedule (departure_time, arrival_time)
+VALUES 
+('08:00:00', '09:00:00'),
+('10:30:00', '11:30:00'),
+('14:00:00', '15:30:00');
+
+INSERT INTO Bus_Route_Schedule (bus_id, schedule_id, route_id)
+VALUES
+(1, 1, 1), -- Bus 1, Schedule 1, Route 1
+(2, 2, 2), -- Bus 2, Schedule 2, Route 2
+(3, 3, 3), -- Bus 3, Schedule 3, Route 3
+(1, 2, 3), -- Bus 1, Schedule 2, Route 3
+(2, 3, 1); -- Bus 2, Schedule 3, Route 1
+
+INSERT INTO employee VALUES
+('EMP001', 'Rahimur Rahman', 'Driver', 50000),
+('EMP002', 'Karimul Kamal', 'Admin', 60000),
+('EMP003', 'Julfiqur Janala', 'Driver', 50000);
+
+INSERT INTO station VALUES
+(1, 'Rajshahi Terminal', 'Rajshahi'),
+(2, 'Cumilla Terminal', 'Cumilla'),
+(3, 'Chattagram Terminal', 'Chattagram');
